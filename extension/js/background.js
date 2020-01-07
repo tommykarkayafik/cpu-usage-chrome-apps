@@ -3,10 +3,11 @@ chrome.browserAction.onClicked.addListener(function(){
   chrome.tabs.create({ url: newURL}, (tab) => {
     chrome.processes.getProcessIdForTab(tab.id, procId => {
       let start = Date.now();
+      let delta = 0;
       chrome.processes.onUpdated.addListener((processes)=> {
-        console.log((Date.now() - start) + ", " + processes[procId].cpu)
+        delta = (Date.now() - start);
+        console.log( delta + ", " + processes[procId].cpu)
       })
-
     })
   })
 });

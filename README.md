@@ -11,3 +11,11 @@ This repo contains:
 Note that all logs are indeed printed in the backgrod page's console. If one logs using `console.log()` from the app itself, the message will not go to the background page's console, and so you must use `chrome.extension.getBackgroundPage().console.log()`. logs in the bckground script should use `console.log()`
 
 In order for the apps to work, one must configure the sessions' / server's details in the config.js file - exactly as done in the OT sample apps.
+
+
+
+## Archiving
+
+This branch tests cpu usage using archiving.
+
+Archiving starts at 10 seconds and lasts until 310 seconds (see the `setInterval` in the app.js file)
