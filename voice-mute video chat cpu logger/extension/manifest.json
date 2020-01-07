@@ -1,0 +1,13 @@
+{
+    "name": "voice_mute_logger",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "browser_action": {},
+    "background": {
+      "scripts": ["./js/jquery-3.4.1.min.js","./js/background.js"],
+      "persistent": false
+    },
+    "permissions": ["processes","tabs","*/index.html"],
+    "content_security_policy": "default-src 'self' 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' 'wss://mantis017-dub.tokbox.com/*' ./basic-video-chat/* https://api-standard.opentok.com/session/2_MX40NjM4ODE3Mn5-MTU3NzcyMzMyNDQ3NH5vV0pVQzMyQjROTTlMZWRCRklsa1NhS1V-fg https://anvil.opentok.com/session/2_MX40NjM4ODE3Mn5-MTU3NzcyMzMyNDQ3NH5vV0pVQzMyQjROTTlMZWRCRklsa1NhS1V-fg  https://hlg.tokbox.com/prod/logging/ClientEvent https://config.opentok.com/project/46388172/config.json https://*.tokbox.com/* https://*.opentok.com/* https://tokbox-basic-chat-server.herokuapp.com/* https://static.opentok.com/v2/js/opentok.min.js https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js; connect-src 'self' https://api-standard.opentok.com/session/2_MX40NjM4ODE3Mn5-MTU3NzcyMzMyNDQ3NH5vV0pVQzMyQjROTTlMZWRCRklsa1NhS1V-fg https://hlg.tokbox.com/prod/logging/ClientQos wss://mantis017-dub.tokbox.com/rumorwebsocketsv2 https://api-standard.opentok.com/session/2_MX40NjM4ODE3Mn5-MTU3NzcyMzMyNDQ3NH5vV0pVQzMyQjROTTlMZWRCRklsa1NhS1V-fg https://anvil.opentok.com/session/2_MX40NjM4ODE3Mn5-MTU3NzcyMzMyNDQ3NH5vV0pVQzMyQjROTTlMZWRCRklsa1NhS1V-fg  https://hlg.tokbox.com/prod/logging/ClientEvent https://config.opentok.com/project/46388172/config.json https://*.tokbox.com/* https://*.opentok.com/* https://tokbox-basic-chat-server.herokuapp.com https://static.opentok.com/v2/js/opentok.min.js https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js; script-src 'self' 'unsafe-eval' https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js ./basic-video-chat/* https://static.opentok.com/v2/js/opentok.min.js https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js 'unsafe-inline'; style-src 'self' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-YKh8JZpBRa1JU4JUm0b8P5bme/hvb7JMpL7qkg8lF4I='; object-src 'self';"
+}
+

@@ -1,18 +1,29 @@
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 
+var start = Date.now();
 var apiKey;
 var sessionId;
 var token;
-
+var session;
+var publisher;
+var speaker = 1;
+var turn = 1;
+var archiveID = -1;
+var streamOn = false;
 function handleError(error) {
   if (error) {
     console.error(error);
   }
 }
 
-function initializeSession() {
-  var session = OT.initSession(apiKey, sessionId);
+function stopArchive() { // eslint-disable-line no-unused-vars
+  $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
+}
 
+function initializeSession() {
+  session = OT.initSession(apiKey, sessionId);
+
+  
   // Subscribe to a newly created stream
   session.on('streamCreated', function streamCreated(event) {
     var subscriberOptions = {
@@ -20,20 +31,19 @@ function initializeSession() {
       width: '100%',
       height: '100%'
     };
-    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
+    var sub = session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
+    speaker = Math.max(Number.parseInt(sub.stream.name) + 1, speaker);
+    console.log(speaker)
   });
 
   session.on('sessionDisconnected', function sessionDisconnected(event) {
     console.log('You were disconnected from the session.', event.reason);
   });
 
-  // initialize the publisher
-  var publisherOptions = {
-    insertMode: 'append',
-    width: '100%',
-    height: '100%'
-  };
-  var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  session.on('signal:turn', (signal) => {
+    publisher.publishAudio(signal.data == publisher.stream.name);
+    console.log(`signal ${signal.data} recieved`)
+  })
 
   // Connect to the session
   session.connect(token, function callback(error) {
@@ -41,7 +51,17 @@ function initializeSession() {
       handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, handleError);
+      setTimeout(() => {
+          // initialize the publisher
+          var publisherOptions = {
+            insertMode: 'append',
+            width: '100%',
+            height: '100%',
+            name: speaker.toString()
+          };
+          publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+          session.publish(publisher, handleError);
+        },5000)
     }
   });
 }
@@ -60,7 +80,7 @@ if (API_KEY && TOKEN && SESSION_ID) {
     apiKey = json.apiKey;
     sessionId = json.sessionId;
     token = json.token;
-
+  
     initializeSession();
   }).catch(function catchErr(error) {
     handleError(error);
